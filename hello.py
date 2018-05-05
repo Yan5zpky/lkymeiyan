@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, jsonify
 from PIL import Image, ImageDraw
 from werkzeug.utils import secure_filename
 
@@ -34,7 +34,9 @@ def digital_makeup():
 		# 将jpg文件加载到numpy数组中
 		imgName = app.config['UPLOAD_FOLDER']+ '/'+filename
 		im = Image.open(imgName)
-		image = face_recognition.load_image_file(imgName)
+		greyImg = Image.open(imgName).convert("L")
+		greyImg.save(app.config['UPLOAD_FOLDER']+ '/grey'+filename)
+		image = face_recognition.load_image_file(app.config['UPLOAD_FOLDER']+ '/grey'+filename)
 
 		# 查找图像中所有面部的所有面部特征
 
