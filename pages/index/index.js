@@ -9,7 +9,9 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     beautyFilePath: '',
-    showView: true
+    originFilePath: '',
+    hideView: "display:block;",
+    showView: "display:none"
   },
   //事件处理函数
   bindViewTap: function() {
@@ -55,13 +57,13 @@ Page({
   },
   // 上传图片
   makeupImage: function() {
-    var _this = this;
+    var _this = this; 
     wx.chooseImage({
       sizeType: ['compressed'],
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
         wx.uploadFile({
-          url: 'http://182.254.214.99/makeup', 
+          url: 'http://182.254.214.99/makeup?sunglass=1', 
           filePath: tempFilePaths[0],
           name: 'file',
           formData: {
@@ -69,16 +71,67 @@ Page({
           },
           success: function (res) {
             var data = res.data
-            console.log(data);
+            var obj = JSON.parse(data);
             _this.setData({
-              beautyFilePath: "http://182.254.214.99/static/"+data,
-              showView: (!_this.data.showView)
+              beautyFilePath: "http://182.254.214.99/static/" + obj.beautifulpath,
+              originFilePath: obj.originpath,
+              hideView: "display:none;",
+              showView: "display:block;"
             })
             
           }
         })
       }
     })
+  },
+  //保存图片
+  saveImage: function(e) {
+    wx.downloadFile({
+      url: e.target.dataset.imageurl,
+      success: function (res) {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: function (res) {
+            console.log(res)
+          },
+          fail: function (res) {
+            console.log(res)
+            console.log('fail')
+          }
+        })
+      },
+      fail: function () {
+        console.log('fail')
+      }
+    }) 
+  },
+  //去掉墨镜
+  removeSunglass: function (e) {
+    var _this = this;
+    wx.chooseImage({
+      sizeType: ['compressed'],
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        wx.uploadFile({
+          url: 'http://182.254.214.99/makeup?sunglass=0',
+          filePath: tempFilePaths[0],
+          name: 'file',
+          formData: {
+
+          },
+          success: function (res) {
+            var data = res.data
+            var obj = JSON.parse(data);
+            _this.setData({
+              beautyFilePath: "http://182.254.214.99/static/" + obj.beautifulpath,
+              originFilePath: obj.originpath,
+              hideView: "display:none;",
+              showView: "display:block;"
+            })
+
+          }
+        })
+      }
+    })
   }
-  
 })
