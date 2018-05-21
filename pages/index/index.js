@@ -133,5 +133,64 @@ Page({
         })
       }
     })
+  },
+  // 滤镜1
+  countour: function (e) {
+    var _this = this;
+    wx.chooseImage({
+      sizeType: ['compressed'],
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        wx.uploadFile({
+          url: 'http://182.254.214.99/makeup?sunglass=0&filterType=2',
+          filePath: tempFilePaths[0],
+          name: 'file',
+          formData: {
+
+          },
+          success: function (res) {
+            var data = res.data
+            var obj = JSON.parse(data);
+            _this.setData({
+              beautyFilePath: "http://182.254.214.99/static/" + obj.beautifulpath,
+              originFilePath: obj.originpath,
+              hideView: "display:none;",
+              showView: "display:block;"
+            })
+
+          }
+        })
+      }
+    })
+  },
+  //滤镜2
+  //去掉墨镜
+  emboss: function (e) {
+    var _this = this;
+    wx.chooseImage({
+      sizeType: ['compressed'],
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        wx.uploadFile({
+          url: 'http://182.254.214.99/makeup?sunglass=0&filterType=6',
+          filePath: tempFilePaths[0],
+          name: 'file',
+          formData: {
+
+          },
+          success: function (res) {
+            var data = res.data
+            var obj = JSON.parse(data);
+            _this.setData({
+              beautyFilePath: "http://182.254.214.99/static/" + obj.beautifulpath,
+              originFilePath: obj.originpath,
+              hideView: "display:none;",
+              showView: "display:block;"
+            })
+
+          }
+        })
+      }
+    })
   }
 })

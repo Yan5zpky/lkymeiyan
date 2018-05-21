@@ -10,6 +10,8 @@
         <view class="button-sp-area">
             <button class="weui-btn mini-btn" type="primary" bindtap="saveImage" size="mini" style="{{showView}}" data-imageurl="{{beautyFilePath}}">保存</button>
             <button class="weui-btn mini-btn" type="default" bindtap="removeSunglass" size="mini" style="{{showView}}" data-originimage="{{originFilePath}}">去掉墨镜</button>
+            <button class="weui-btn mini-btn" type="default" bindtap="countour" size="mini" style="{{showView}}" data-originimage="{{originFilePath}}">轮廓滤镜</button>
+            <button class="weui-btn mini-btn" type="default" bindtap="emboss" size="mini" style="{{showView}}" data-originimage="{{originFilePath}}">浮雕滤镜</button>
         </view>
     </view>
 </view>
