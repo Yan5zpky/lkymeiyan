@@ -1,8 +1,8 @@
 <!--index.wxml-->
 <view class="page">
     <view class="page__hd">
-        <view class="page__title">最懂你的美</view>
-        <view class="page__desc">小程序将会对你的照片进行美颜处理，发现你的美。</view>
+        <view class="page__title">刘恺玙的微信小程序</view>
+        <view class="page__desc">小程序将会对你的照片进行趣味处理。</view>
     </view>
     <view class="page__bd page__bd_spacing">
         <button class="weui-btn" type="primary" bindtap="makeupImage" style="{{hideView}}">一键美颜</button>
